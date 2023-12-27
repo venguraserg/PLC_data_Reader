@@ -35,8 +35,6 @@ namespace PLC_Reader_Console
         /// <param name="databaseName">Имя базы данных</param>
         /// <param name="login">Логин для авторизации в БД</param>
         /// <param name="password">Пароль для авторизации в БД</param>
-        /// <exception cref="ArgumentNullException"></exception>
-
 
         /// <summary>
         /// Строка подключения к БД connectionString = $"Server={server};Initial Catalog={databaseName};User ID={login};Password={password}";
