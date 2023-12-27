@@ -12,26 +12,21 @@ namespace PLC_Reader_Console
     public class ConnectDB
     {
         /// <summary>
-        /// Строка подключения к БД connectionString = $"Server={server};Initial Catalog={databaseName};User ID={login};Password={password}";
-        /// </summary>
-        public static string connectionString = "";
-        SqlConnection sqlConnection = new SqlConnection(connectionString);
-        /// <summary>
         /// Имя сервера или ip-адрес
         /// </summary>
-        public string Server { get;}
+        public string Server { get; }
         /// <summary>
         /// Имя базы данных
         /// </summary>
-        public string DatabaseName {  get;}
+        public string DatabaseName { get; }
         /// <summary>
         /// Логин для авторизации в БД
         /// </summary>
-        public string Login { get;}
+        public string Login { get; }
         /// <summary>
         /// Пароль для авторизации в БД
         /// </summary>
-        public string Password { get;}
+        public string Password { get; }
 
         /// <summary>
         /// Создать строку подключения к базе данных
@@ -41,6 +36,13 @@ namespace PLC_Reader_Console
         /// <param name="login">Логин для авторизации в БД</param>
         /// <param name="password">Пароль для авторизации в БД</param>
         /// <exception cref="ArgumentNullException"></exception>
+
+
+        /// <summary>
+        /// Строка подключения к БД connectionString = $"Server={server};Initial Catalog={databaseName};User ID={login};Password={password}";
+        /// </summary>
+        public string ConnectionString { get; }
+
         public ConnectDB(string server, string databaseName, string login, string password)
         {
             if (string.IsNullOrWhiteSpace(server))
@@ -60,10 +62,12 @@ namespace PLC_Reader_Console
                 throw new ArgumentNullException("Пароль не может быть пустым или null.", nameof(password));
             }
 
+
             this.Server = server;
             this.DatabaseName = databaseName;
             this.Login = login;
             this.Password = password;
+            this.ConnectionString = $"Server={server};Initial Catalog={databaseName};User ID={login};Password={password}";
         }
 
         /// <summary>
@@ -71,16 +75,18 @@ namespace PLC_Reader_Console
         /// </summary>
         public void openConnection()
         {
+            SqlConnection sqlConnection = new SqlConnection(ConnectionString);
             try
             {
                 if (sqlConnection.State == System.Data.ConnectionState.Closed)
                 {
                     sqlConnection.Open();
+                    Console.WriteLine("Подключение установлено.");
                 }
             }
             catch (SqlException ex)
             {
-                Console.WriteLine($"Нет подключения к БД!\n\nОшибка: {ex.Message}"); 
+                Console.WriteLine($"Нет подключения к БД!\n\nОшибка: {ex.Message}");
             }
         }
 
@@ -89,17 +95,19 @@ namespace PLC_Reader_Console
         /// </summary>
         public void closeConnection()
         {
+            SqlConnection sqlConnection = new SqlConnection(ConnectionString);
             if (sqlConnection.State == System.Data.ConnectionState.Open)
             {
                 sqlConnection.Close();
+                Console.WriteLine("Подключение закрыто.");
             }
         }
 
-        /*
+
         public SqlConnection getConnection()
         {
+            SqlConnection sqlConnection = new SqlConnection(ConnectionString);
             return sqlConnection;
         }
-        */
     }
 }
