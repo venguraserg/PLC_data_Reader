@@ -114,7 +114,7 @@ namespace PLC_Reader_Console
 
 
             //////////////////////////
-            var shSender = new GoogleDataSender("1PWxv4H1p-z-LR21uULmE0SJ6EG-WLFmJteXieF6drtg", /*DateTime.Now.Date.ToShortDateString().ToString()*/"test");
+            var shSender = new GoogleDataSender("1PWxv4H1p-z-LR21uULmE0SJ6EG-WLFmJteXieF6drtg", DateTime.Now.Date.ToShortDateString().ToString());
 
             shSender.CreateEntry(plcData);
         }
