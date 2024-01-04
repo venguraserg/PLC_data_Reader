@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -18,6 +19,26 @@ namespace PLC_Reader_Console
 
         static void Main(string[] args)
         {
+
+
+
+            //Подключение к БД
+            ConnectDB connect = new("SRV-XAMP\\SQLEXPRESS", "PLC_data", "pcl_user", "pcl_user");
+           
+            string queryString = $"INSERT INTO DataTable (id, Name) VALUES (1, 'John')";
+            connect.openConnection();
+
+            SqlCommand command = new SqlCommand(queryString, connect.getConnection());
+            command.ExecuteReader();
+            
+            
+            
+            connect.closeConnection();
+            
+            Console.ReadKey();
+
+
+            //********************
 
 
 
