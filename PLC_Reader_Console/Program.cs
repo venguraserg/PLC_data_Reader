@@ -10,6 +10,8 @@ using Google.Apis.Sheets.v4;
 using Google.Apis.Sheets.v4.Data;
 using GoogleSheet;
 using S7.Net;
+using static System.Net.WebRequestMethods;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace PLC_Reader_Console
 {
@@ -24,17 +26,14 @@ namespace PLC_Reader_Console
 
             //Подключение к БД
             ConnectDB connect = new("SRV-XAMP\\SQLEXPRESS", "PLC_data", "pcl_user", "pcl_user");
-           
-            string queryString = $"INSERT INTO DataTable (id, Name) VALUES (1, 'John')";
-            connect.openConnection();
 
+            connect.openConnection();
+            string queryString = System.String.Format($"INSERT INTO DataTable (Id, Name) VALUES ( 1,Jonv)");
             SqlCommand command = new SqlCommand(queryString, connect.getConnection());
             command.ExecuteReader();
-            
-            
-            
             connect.closeConnection();
-            
+
+
             Console.ReadKey();
 
 
